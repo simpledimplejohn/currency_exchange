@@ -12,12 +12,12 @@ import ExchangeRate from './js/exchageRate';
 console.log(`The API key is: ${process.env.API_KEY}`)
 
 function getElements(response) {
-  if(response) {
-    $('.showRate').html(`<p>${response}</P>`)
-    console.log("getElements works", response)
+  if(response.conversion_rates) {
+    $('.showRate').html(`<p>${response.conversion_rates["USD"]}</P>`)
+    console.log("sent to DOM", response.conversion_rates["USD"])
   } else {
-    $('.showErrors').text(`"There was an error: ${response}`)
-    console.log("getElements error ", response)
+    $('.showErrors').html(`<p>There was an error: ${response}</p>`)
+    console.log("getElements error", response)
   }
 }
 
@@ -26,8 +26,8 @@ async function makeApiCall(choice) {
 
   console.log("choice in makeApiCall: ", choice);
   const response = await ExchangeRate.getCountryRate(choice);
-  console.log("conversion rate =", response.conversion_rates["USD"]);
-  getElements(response.conversion_rates["USD"]);
+  console.log("makeApiCall sends to getElements:", response);
+  getElements(response);
 
 }
 
