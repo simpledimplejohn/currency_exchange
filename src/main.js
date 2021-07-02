@@ -13,7 +13,7 @@ console.log(`The API key is: ${process.env.API_KEY}`)
 async function makeApiCall(choice) {
   try{
     console.log("choice in makeApiCall: ", choice);
-    const response = await ExchangeRate(choice);
+    const response = await ExchangeRate.getCountryRate(choice);
     console.log("makeApiCall response: ", response);
     
   }
