@@ -21,28 +21,22 @@ function getElements(response) {
 
 
 async function makeApiCall(choice) {
-  try{
-    console.log("choice in makeApiCall: ", choice);
-    const response = await ExchangeRate.getCountryRate(choice);
-    console.log("makeApiCall response: ", response.conversion_rates["AUD"]);
-    getElements(response);
-  }
-  catch(err) {
-    console.log("await failed error: ", err);
-  }
+
+  console.log("choice in makeApiCall: ", choice);
+  const response = await ExchangeRate.getCountryRate(choice);
+  console.log("conversion rate =", response.conversion_rates["USD"]);
+  getElements(response.conversion_rates["USD"]);
+
 }
 
 $(document).ready(function() {
-  console.log("document.ready works!");
-  let test = "AUD"
-  console.log("calling makeApiCall with choice: ", makeApiCall(test));
   $('#currency-form').submit(function(event) {
     event.preventDefault();
     let choice = $('#countryCode').val();
-    console.log("form input: ",choice);
+    //console.log("form input: ",choice);
     
     $(".showRate").text(makeApiCall(choice));
-    console.log("form submits", makeApiCall(choice));
+    //console.log("what's getting sent from form:", makeApiCall(choice));
 
   })
 })
