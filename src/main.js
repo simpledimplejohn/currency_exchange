@@ -12,7 +12,7 @@ import ExchangeRate from './js/exchageRate';
 console.log(`The API key is: ${process.env.API_KEY}`)
 
 function getElements(response) {
-  if(response.conversion_rates) {
+  if(response) {
     $('.showRate').html(`<p>${response.conversion_rates["USD"]}</P>`)
     console.log("sent to DOM", response.conversion_rates["USD"])
   } else {
