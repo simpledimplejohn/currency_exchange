@@ -8,7 +8,7 @@ import ExchangeRate from './js/exchageRate';
 
 //check
 
-$(".test").html(`${process.env.API_KEY}`)
+//$(".test").html(`${process.env.API_KEY}`)
 console.log(`The API key is: ${process.env.API_KEY}`)
 
 function getElements(response) {
@@ -33,12 +33,17 @@ async function makeApiCall(choice) {
 }
 
 $(document).ready(function() {
-  $('currency-form').submit(function(event) {
+  console.log("document.ready works!");
+  let test = "AUD"
+  console.log("calling makeApiCall with choice: ", makeApiCall(test));
+  $('#currency-form').submit(function(event) {
     event.preventDefault();
     let choice = $('#countryCode').val();
-    console.log(choice)
-    console.log("calling makeApiCall with choice: ", makeApiCall(choice));
-    $(".showRate").text(makeApiCall(choice));
+    console.log("form input: ",choice);
+    
+    //$(".showRate").text(makeApiCall(choice));
+    //console.log("form submits", makeApiCall(choice))
+
   })
 })
 
