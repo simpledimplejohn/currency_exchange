@@ -7,6 +7,4 @@ $(".test").html(`${process.env.API_KEY}`)
 console.log(`The API key is: ${process.env.API_KEY}`)
 
 
-//stuff
 
-//project working
