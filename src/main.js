@@ -15,11 +15,14 @@ function getElements(response, usdInput) {
   if(response) {
     $('.showRate').html(`<p>Your conversion rate is: ${response.conversion_rates["USD"]}</P>`)
     console.log("sent to DOM", response.conversion_rates["USD"])
-    //let newValue = usdInput * response.conversion_rates["USD"]
-    console.log("converted",usdInput)
+    let newValue = Math.floor(usdInput / response.conversion_rates["USD"])
+    $('.showExchange').text(`That means ${usdInput} dollars is worth ${newValue} in this currency`)
+    console.log("dollars moved",usdInput)
+    console.log("converted", newValue)
   } else {
     $('.showErrors').text(`There was an error: ${response}`)
     console.log("getElements error:", response)
+
   }
 }
 
