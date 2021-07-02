@@ -5,7 +5,6 @@ export default class ExchangeRate {
       if (!response.ok) {
         throw Error(response.statusTextError);
       }
-      console.log("getCountryRate: ", response.json)
       return response.json();
     } catch(error) {
       return error.message;
