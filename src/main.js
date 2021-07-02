@@ -24,7 +24,7 @@ async function makeApiCall(choice) {
   try{
     console.log("choice in makeApiCall: ", choice);
     const response = await ExchangeRate.getCountryRate(choice);
-    console.log("makeApiCall response: ", response);
+    console.log("makeApiCall response: ", response.conversion_rates["AUD"]);
     getElements(response);
   }
   catch(err) {
@@ -42,7 +42,7 @@ $(document).ready(function() {
     console.log("form input: ",choice);
     
     $(".showRate").text(makeApiCall(choice));
-    console.log("form submits", makeApiCall(choice))
+    console.log("form submits", makeApiCall(choice));
 
   })
 })
