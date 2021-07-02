@@ -41,8 +41,8 @@ $(document).ready(function() {
     let choice = $('#countryCode').val();
     console.log("form input: ",choice);
     
-    //$(".showRate").text(makeApiCall(choice));
-    //console.log("form submits", makeApiCall(choice))
+    $(".showRate").text(makeApiCall(choice));
+    console.log("form submits", makeApiCall(choice))
 
   })
 })
