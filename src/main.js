@@ -11,23 +11,25 @@ import ExchangeRate from './js/exchageRate';
 //$(".test").html(`${process.env.API_KEY}`)
 console.log(`The API key is: ${process.env.API_KEY}`)
 
-function getElements(response) {
+function getElements(response, usdInput) {
   if(response) {
-    $('.showRate').html(`<p>${response.conversion_rates["USD"]}</P>`)
+    $('.showRate').html(`<p>Your conversion rate is: ${response.conversion_rates["USD"]}</P>`)
     console.log("sent to DOM", response.conversion_rates["USD"])
+    //let newValue = usdInput * response.conversion_rates["USD"]
+    console.log("converted",usdInput)
   } else {
-    $('.showErrors').html(`<p>There was an error: ${response}</p>`)
-    console.log("getElements error", response)
+    $('.showErrors').text(`There was an error: ${response}`)
+    console.log("getElements error:", response)
   }
 }
 
 
-async function makeApiCall(choice) {
+async function makeApiCall(choice, usdInput) {
 
   console.log("choice in makeApiCall: ", choice);
   const response = await ExchangeRate.getCountryRate(choice);
   console.log("makeApiCall sends to getElements:", response);
-  getElements(response);
+  getElements(response, usdInput);
 
 }
 
@@ -35,9 +37,11 @@ $(document).ready(function() {
   $('#currency-form').submit(function(event) {
     event.preventDefault();
     let choice = $('#countryCode').val();
+    let usdInput = $('#usdInput').val();
+    console.log("usdInput:",usdInput)
     //console.log("form input: ",choice);
-    
-    $(".showRate").text(makeApiCall(choice));
+    makeApiCall(choice, usdInput);
+    //$(".showRate").text(makeApiCall(choice));
     //console.log("what's getting sent from form:", makeApiCall(choice));
 
   })
