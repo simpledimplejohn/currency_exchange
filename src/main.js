@@ -5,18 +5,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ExchangeRate from './js/exchageRate';
 
 
+function clearFields() {
+  $('.showRate').html("");
+  $('.showExchange').text("");
+  $('.showErrors').text("");
 
-//check
+}
 
-//$(".test").html(`${process.env.API_KEY}`)
-console.log(`The API key is: ${process.env.API_KEY}`)
 
-function getElements(response, usdInput, choice) {
-  if(response) {
+function getElements(response, usdInput) {
+  if(response.result) {
     $('.showRate').html(`<p>Your conversion rate is: ${response.conversion_rates["USD"]}</P>`)
     console.log("sent to DOM", response.conversion_rates["USD"])
     let newValue = Math.floor(usdInput / response.conversion_rates["USD"])
-    $('.showExchange').text(`That means ${usdInput} dollars is worth ${newValue} in ${choice} currency`)
+    $('.showExchange').text(`That means ${usdInput} dollars is worth ${newValue} in ${response.base_code} currency`)
     console.log("dollars moved",usdInput)
     console.log("converted", newValue)
   } else {
@@ -32,7 +34,7 @@ async function makeApiCall(choice, usdInput) {
   console.log("choice in makeApiCall: ", choice);
   const response = await ExchangeRate.getCountryRate(choice);
   console.log("makeApiCall sends to getElements:", response);
-  getElements(response, usdInput, choice);
+  getElements(response, usdInput);
 
 }
 
@@ -43,6 +45,7 @@ $(document).ready(function() {
     let usdInput = $('#usdInput').val();
     console.log("usdInput:",usdInput)
     //console.log("form input: ",choice);
+    clearFields();
     makeApiCall(choice, usdInput);
     //$(".showRate").text(makeApiCall(choice));
     //console.log("what's getting sent from form:", makeApiCall(choice, usdInput));
