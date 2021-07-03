@@ -45,7 +45,7 @@ $(document).ready(function() {
     //console.log("form input: ",choice);
     makeApiCall(choice, usdInput);
     //$(".showRate").text(makeApiCall(choice));
-    //console.log("what's getting sent from form:", makeApiCall(choice));
+    console.log("what's getting sent from form:", makeApiCall(choice, usdInput));
 
   })
 })
