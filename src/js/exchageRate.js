@@ -1,12 +1,17 @@
 export default class ExchangeRate {
   static async getCountryRate(choice) {
     try {
+      console.log("apikey",process.env.API_KEY)
       const response = await fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/${choice}`);
+      
       if (!response.ok) {
-        throw Error(response.status);
-      }
+        const parsed = await response.json();
+        throw Error(parsed["error-type"]);        
+      }      
       return response.json();
     } catch(error) {
       return error;
     }
   }
+}
+

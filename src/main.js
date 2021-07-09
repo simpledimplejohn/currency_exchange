@@ -10,17 +10,21 @@ function clearFields() {
 }
 
 function getElements(response, usdInput) {
-  if(response.status) {
+  if(response.result) {
     $('.showRate').html(`<p>Your conversion rate is: ${response.conversion_rates["USD"]}</P>`)
     let newValue = Math.floor(usdInput / response.conversion_rates["USD"])
     $('.showExchange').text(`That means ${usdInput} dollars is worth ${newValue} in ${response.base_code} currency`)
-  } else {
+  } else if (response.message === "unsupported-code"){
+    $('.showErrors').text('not a country')
+  } else  {
     $('.showErrors').text(`There was an error: ${response}`)
   }
 }
 
 async function makeApiCall(choice, usdInput) {
   const response = await ExchangeRate.getCountryRate(choice);
+  console.log("makeApiCall", response);
+
   getElements(response, usdInput);
 }
 
